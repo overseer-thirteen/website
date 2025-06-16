@@ -70,6 +70,8 @@ div{
     width: 95%;
     max-width: 300px;
     max-height: 300px;
+    display: flex;
+    flex-direction: column;
 }
 
 #somethingpanel{
@@ -81,7 +83,7 @@ div{
 
 #cellgrid {
     display: grid;
-    gap: 10px; /* optional */
+    gap: 10px;
     transition: all 0.3s ease-in-out;
   }
 
@@ -93,6 +95,48 @@ div{
     font-size: 16px;
     font-weight: bold;
 }
+
+#socialscontent {
+    flex: 1;
+    overflow: auto;
+    border: 0px solid white;
+    outline: 0px solid white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: auto;
+  }
+
+#socialsgrid{
+    outline: 0px solid white;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 20px;
+    width: max-content;
+    height: max-content;
+}
+
+#socialsgrid img{
+    display: block;
+    height: 50px;
+    width: 50px;
+}
+
+#socialsgrid img:active {
+    filter: invert(1);
+}
+
+#socialsgrid img:hover{
+    outline: 3px solid white;
+}
+
+#socialscontent h1{
+    margin-bottom: 30px;
+}
+
 
 button{
     margin-left: auto;

@@ -21,7 +21,7 @@ function updateGridAreas() {
         });
         setTimeout(() => {
             audio.play();
-        }, 1500);
+        }, 1000);
     }
     
     if ((!activeCells.includes('facts')) && (!activeCells.includes('socials')) & (!activeCells.includes('something'))){
@@ -74,6 +74,12 @@ function updateGridAreas() {
         for (let i =0; i<n; i++){
             grid_template_cols.push(String(3.0/n)+'fr');
         }
+    }
+
+    if(activeCells.includes('intro') && activeCells.length==1){
+        grid_template_area = [['intro']];
+        grid_template_cols = ['1fr'];
+        grid_template_rows = ['1fr'];
     }
 
     let newAreas = grid_template_area.map(row => `"${row.join(' ')}"`).join(' ');
@@ -247,6 +253,20 @@ document.addEventListener('DOMContentLoaded', () => {
           }, 10);
   
       });
+
+    const links = document.querySelectorAll(".draggable a");
+
+    links.forEach(link => {
+        link.addEventListener("mousedown", (e) => {
+            e.stopPropagation(); // Prevent drag from initiating
+        });
+
+        link.addEventListener("click", (e) => {
+            if (isDragging) {
+                e.preventDefault(); // Prevent accidental navigation during drag
+            }
+        });
+    });
     
     const clickSound = new Audio('Audio/Mouse Click.mp3');
 
