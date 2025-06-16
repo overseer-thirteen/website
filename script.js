@@ -13,6 +13,16 @@ function updateGridAreas() {
 
     //
     const activeCells = Array.from(document.querySelectorAll('.cell')).map(cell => cell.id.replace('cell', ''));
+
+    if(activeCells.length==0){
+        const audio = new Audio('Audio/Shut Down.mp3');
+        audio.addEventListener('ended', () => {
+            window.location.href = 'about:blank';
+        });
+        setTimeout(() => {
+            audio.play();
+        }, 1500);
+    }
     
     if ((!activeCells.includes('facts')) && (!activeCells.includes('socials')) & (!activeCells.includes('something'))){
         let rowIndex = -1;
@@ -122,10 +132,18 @@ function animateSnap(el, dx, dy) {
 
 
 document.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('pageshow', (event) => {
+        if (event.persisted) {
+          window.location.reload();
+        }
+      });      
+
+
+
     const h1 = document.getElementById('hoverText');
     h1.style.whiteSpace = 'pre';
     const characters = h1.textContent.split('');
-    h1.textContent = ''; // Clear existing text
+    h1.textContent = '';
 
     characters.forEach(char => {
     const span = document.createElement('span');
@@ -228,5 +246,13 @@ document.addEventListener('DOMContentLoaded', () => {
               }
           }, 10);
   
-      });  
+      });
+    
+    const clickSound = new Audio('Audio/Mouse Click.mp3');
+
+    document.addEventListener('click', () => {
+        clickSound.currentTime = 0; // rewind if it's mid-play
+        clickSound.play();
+    });
+
 });
