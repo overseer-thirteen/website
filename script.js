@@ -11,7 +11,6 @@ function updateGridAreas() {
         oldPositions.set(panel, { left: rect.left, top: rect.top });
     });
 
-    //
     const activeCells = Array.from(document.querySelectorAll('.cell')).map(cell => cell.id.replace('cell', ''));
 
     if(activeCells.length==0){
@@ -158,7 +157,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const span = document.createElement('span');
     span.textContent = char;
 
-    // Add hover effect
     span.style.display = 'inline-block';
     span.style.transition = 'transform 0.1s ease';
 
@@ -187,12 +185,10 @@ document.addEventListener('DOMContentLoaded', () => {
       let offsetX = 0;
       let offsetY = 0;
   
-      // Store the original position
       let originalRect = null;
       let startLeft = 0;
       let startTop = 0;
   
-      // Track last transform
       let deltaX = 0;
       let deltaY = 0;
   
@@ -261,12 +257,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     links.forEach(link => {
         link.addEventListener("mousedown", (e) => {
-            e.stopPropagation(); // Prevent drag from initiating
+            e.stopPropagation();
         });
 
         link.addEventListener("click", (e) => {
             if (isDragging) {
-                e.preventDefault(); // Prevent accidental navigation during drag
+                e.preventDefault();
             }
         });
     });
@@ -286,7 +282,7 @@ document.addEventListener('DOMContentLoaded', () => {
         "Every positive even integer greater than 2 can be written as the sum of two primes. <br style='margin-bottom:10px'> I have discovered a remarkable proof of this that these margins are too narrow to contain.",
         "You should give me money.",
         "Yo mama so fat that she sought medical assistance, and through strenuous exercise and dieting has brought her health back under control. <br style='margin-bottom:10px'> We are very proud of her.",
-        "A group of flamingos is called a 'flamboyance'."
+        "im watching u"
     ];
 
     let currentIndex = 0;
@@ -340,6 +336,68 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     //==============================================
+    //ANIMATED RIPPLES
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    let w = canvas.width = window.innerWidth;
+    let h = canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+    });
+
+    class Ring {
+        constructor(x, y) {
+            this.x = x;
+            this.y = y;
+            this.radius = 0;
+            this.maxRadius = 1000;
+            this.lineWidth = 10;
+            this.alpha = 1;
+        }
+
+        update() {
+            this.radius += 20;
+            this.alpha -= 0.01;
+        }
+
+        draw(ctx) {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.strokeStyle = `rgba(255, 255, 255, ${this.alpha})`;
+            ctx.lineWidth = this.lineWidth;
+            ctx.stroke();
+        }
+
+        isDead() {
+            return this.alpha <= 0 || this.radius > this.maxRadius;
+        }
+    }
+
+    const rings = [];
+
+    document.addEventListener('click', e => {
+        rings.push(new Ring(e.clientX, e.clientY));
+    });
+
+    function animate() {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+        ctx.fillRect(0, 0, w, h);
+
+        for (let i = rings.length - 1; i >= 0; i--) {
+            const ring = rings[i];
+            ring.update();
+            ring.draw(ctx);
+            if (ring.isDead()) {
+                rings.splice(i, 1);
+            }
+        }
+        requestAnimationFrame(animate);
+    }
+    animate();
+
+    //================================
 
 });
 
