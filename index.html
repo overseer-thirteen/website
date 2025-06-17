@@ -16,22 +16,47 @@
                 <div id="mainpanel" class="panel draggable"><div class="topstrip">display.pptx<button class="close-button">✕</button></div></div>
             </div>
             <div id="factscell" class="cell">
-                <div id="factspanel" class="panel draggable"><div class="topstrip">facts.csv<button class="close-button">✕</button></div></div>
+                <div id="factspanel" class="panel draggable">
+                    <div class="topstrip">facts.csv<button class="close-button">✕</button></div>
+                    <h1 id="factsheading">Facts</h1>
+                    <div id="factscontent" class="content">
+                        <div id="currentfact"></div>
+                        <div id="nextfact"></div>
+                    </div>
+                    <div id="factsmenu">
+                        <div id="factsleftbutton" class="factscarouselbutton"><</div>
+                        <div id="factsrightbutton" class="factscarouselbutton">></div>
+                    </div>
+                </div>
             </div>
+
             <div id="somethingcell" class="cell">
-                <div id="somethingpanel" class="panel draggable"><div class="topstrip">site.exe<button class="close-button">✕</button></div></div>
+                <div id="somethingpanel" class="panel draggable">
+                    <div class="topstrip">site.exe<button class="close-button">✕</button></div>
+                    <div class="content" id="somethingcontent">
+                        <div id="lightdarkoption" class="option">
+                            <div id="modeindicator">Dark Mode</div>
+                            <div class="groove toggleable" id="lightdarkswitch">
+                                <div class="handle toggleable"></div>
+                            </div>
+                        </div>
+                        <div id="divider" style="height: 2px; width: 150px; background-color: white;"></div>
+                        <div class="info">All sfx sourced from ZapSplat</div>
+                    </div>
+                </div>
             </div>
+
             <div id="socialscell" class="cell">
                 <div id="socialspanel" class="panel draggable">
                     <div class="topstrip">socials.html<button class="close-button">✕</button></div>
-                    <div id = "socialscontent">
+                    <div id = "socialscontent" class="content">
                         <h1>Stalk me online:</h1>
                         <div id="socialsgrid">
                             <a href="about:blank" target="_blank"><img src="Images/Logos/discord.png"></a>
                             <a href="about:blank" target="_blank"><img src="Images/Logos/github.png"></a>
-                            <a href="about:blank" target="_blank"><img src="Images/Logos/itchio.jpeg"></a>
-                            <a href="about:blank" target="_blank"><img src="Images/Logos/reddit.jpg"></a>
-                            <a href="about:blank" target="_blank"><img src="Images/Logos/youtube.jpeg"></a>
+                            <a href="about:blank" target="_blank"><img src="Images/Logos/itchio.png"></a>
+                            <a href="about:blank" target="_blank"><img src="Images/Logos/reddit.png"></a>
+                            <a href="about:blank" target="_blank"><img src="Images/Logos/youtube.png"></a>
                             <a href="about:blank" target="_blank"><img src="Images/Logos/discord.png"></a>
                             <a href="about:blank" target="_blank"><img src="Images/Logos/discord.png"></a>
                             <a href="about:blank" target="_blank"><img src="Images/Logos/discord.png"></a>
@@ -39,6 +64,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </body>
 </html>

@@ -1,5 +1,6 @@
 night/light mode
 content
+carousel
 resize behaviour
 sound effects
 attribute zapsplat

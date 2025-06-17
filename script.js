@@ -137,6 +137,9 @@ function animateSnap(el, dx, dy) {
 }
 
 
+//==========================
+//MAIN
+
 document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('pageshow', (event) => {
         if (event.persisted) {
@@ -236,7 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
             let initialdisplacement = Math.sqrt(Math.abs(inix)**2 + Math.abs(iniy)**2);
             let theta = Math.atan2(iniy,inix);
             let start = Date.now();
-            let damping = 5; let omega=15;
+            let damping = 10; let omega=15;
             isDragging = false;
             Dragging = null;
             //curobject.style.zIndex = '';
@@ -267,12 +270,76 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-    
+
     const clickSound = new Audio('Audio/Mouse Click.mp3');
 
     document.addEventListener('click', () => {
-        clickSound.currentTime = 0; // rewind if it's mid-play
+        clickSound.currentTime = 0;
         clickSound.play();
     });
 
+    //==========================
+    //FACTS CAROUSEL
+
+    const facts = [
+        "Children are the future - unless we stop them. And we're running out of time.",
+        "Every positive even integer greater than 2 can be written as the sum of two primes. <br style='margin-bottom:10px'> I have discovered a remarkable proof of this that these margins are too narrow to contain.",
+        "You should give me money.",
+        "Yo mama so fat that she sought medical assistance, and through strenuous exercise and dieting has brought her health back under control. <br style='margin-bottom:10px'> We are very proud of her.",
+        "A group of flamingos is called a 'flamboyance'."
+    ];
+
+    let currentIndex = 0;
+    let isAnimatingFacts = false;
+
+    const container = document.getElementById("fact-container");
+    const currentDiv = document.getElementById("currentfact");
+    const nextDiv = document.getElementById("nextfact");
+
+    currentDiv.textContent = facts[currentIndex];
+
+    function showFact(direction) {
+        if(isAnimatingFacts) return;
+        isAnimatingFacts=true;
+        const increment = direction === "right" ? 1 : -1;
+        const nextIndex = (currentIndex + increment + facts.length) % facts.length;
+
+        nextDiv.innerHTML = facts[nextIndex];
+
+        nextDiv.style.transition = "none";
+        currentDiv.style.transition = "none";
+        nextDiv.style.transform = `translateX(${direction === "right" ? '100%' : '-100%'})`;
+
+        void nextDiv.offsetWidth;
+
+        nextDiv.style.transition = "transform 0.5s ease";
+        currentDiv.style.transition = "transform 0.5s ease";
+        currentDiv.style.transform = `translateX(${direction === "right" ? '-100%' : '100%'})`;
+        nextDiv.style.transform = "translateX(0%)";
+
+        setTimeout(() => {
+            currentDiv.innerHTML = nextDiv.innerHTML;
+            nextDiv.innerHTML="";
+            currentDiv.style.transition = "none";
+            currentDiv.style.transform = "translateX(0%)";
+            nextDiv.style.transition = "none";
+            nextDiv.style.transform = "translateX(0%)";
+            isAnimatingFacts=false;
+            currentIndex = nextIndex;
+        }, 500);
+    }
+    document.getElementById("factsrightbutton").addEventListener("click", () => showFact("right"));
+    document.getElementById("factsleftbutton").addEventListener("click", () => showFact("left"));
+    
+    //============================================
+    //LIGHT-DARK TOGGLE
+
+    const switchEl = document.getElementById('lightdarkswitch');
+    switchEl.addEventListener('click', () => {
+      document.querySelectorAll('.toggleable').forEach(el => el.classList.toggle('on'));
+    });
+
+    //==============================================
+
 });
+
